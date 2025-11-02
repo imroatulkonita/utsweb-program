@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DAILY GRIND</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    body{
+        font-family: 'poppins',sans-serif;
+        background-color: #f6f2ee;
+    }
+    
+    /*NAVBAR*/
+    nav{
+        background-color: #6f4e37;
+    }
+    .navbar-brand{
+        font-weight: bold;
+        color: #fff !important;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    /*HEADER*/
+    .hero{
+        background-image: url('https://superlive.id/storage/superadventure/2019/10/31/38f8dac9958c.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .hero h1{ 
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    /*PRODUK*/
+    .card{
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 3px 8px rgba(0,0,0,.1);
+        transition: transform 0.2s ease;
+    }
+    .card :hover{
+        transform: scale(1.03);
+    }
+    .card img{
+        height: 180px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        object-fit: cover;
+    }
+
+    /*TOMBOL*/
+    .btn-primary{
+        background-color: #6f4e37;
+        border: none;
+    }
+    .btn-primary :hover{
+        background-color: #5c3f2c;
+    }
+
+    /*TABEL*/
+    table{
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .table thead{
+        background-color: #d7ccc8;
+    }
+    .product-img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /*FOOTER*/
+    footer{
+        text-align: center;
+        padding: 15px;
+        margin-top: 40px;
+        background-color: #6f4e37;
+        color: #fff;
+        font-size: 0.9rem;
+    }
+    </style>
+</head>
+<body>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">☕ THE DAILY GRIND</a>
+        </div>
+    </nav>
+
+    <!--HEADER-->
+    <div class="hero">
+        <h1>SELAMAT DATANG DI CAFE THE DAILY GRIND</h1>
+    </div>
+
+    <!--MENU-->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">MENU SPESIAL KAMI ADA DI BAWAH INI !</h2>
+        <div class="row" id="product-list"></div>
+
+        <hr class="my-5">
+
+        <!--FORM PEMBELI-->
+        <div class="card p-4 mb-4 shadow-sm">
+            <h4 class="mb-3 text-center">📋Data Pembeli</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nama" class="form-label">Nama Lengkap</label>
+                    <input type="text" id="nama" class="form-control" placeholder="Masukkan Nama Anda">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="contoh@gmail.com"> 
+                </div>
+                <div class="col-12">
+                    <label for="alamat" class="form-label">Alamat Rumah</label>
+                    <input type="text" id="alamat" class="form-control" placeholder="Masukkan Alamat Rumah Anda">
+                </div>
+            </div>
+        </div>
+
+        <!--KERANJANG-->
+        <h3 class="text-center mb-3">🛒 Keranjang Pesanan</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Menu</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-3">
+            <h4>Total Pesanan : Rp<span id = "total-price">0</span></h4>
+            <button class="btn btn-primary mt-3"id ="checkout-btn">checkout</button>
+        </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer>
+       © 2024 THE DAILY GRIND | Made With 💫 by imroatlknta
+    </footer>
+
+    <!--SCRIPT-->
+    <script>
+        const products =[
+            { id : 1,name: "Mocktail",price: 20000,img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH6qnAeOQsx5PHS0yb9B6l-YDq_2_mYbcFjg&s"},
+            { id : 2,name: "Smoothie",price: 22000,img: "https://png.pngtree.com/png-clipart/20250123/original/pngtree-smoothies-ready-fruits-png-image_20328080.png"},
+            { id : 3,name: "Point Caffe",price: 29000,img: "https://pointcoffee.id/wp-content/uploads/2024/05/Coffee-Series-1.png"},
+            { id : 4,name: "Coteca",price: 24000,img: "https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/41556505-60db-4f2f-bdff-9f9c22dd5f65_IMG_20190731_112624_441.jpg"},
+            { id : 5,name: "Matcha Latte",price: 25000,img: "https://png.pngtree.com/thumb_back/fh260/background/20240415/pngtree-matcha-green-tea-latte-with-caramel-image_15658064.jpg"},
+        ];
+
+        let cart =[];
+
+        const productList = document.getElementById("product-list");
+        const cartTable = document.querySelector("#cart-table tbody");
+        const totalPriceEl = document.getElementById("total-price");
+        const checkoutBtn = document.getElementById("checkout-btn");
+
+        function renderProducts(){
+            products.forEach(p => {
+                const col = document.createElement("div");
+                col.classList.add("col-md-4","mb-4");
+                col.innerHTML = `
+                <div class = "card">
+                    <img src = "${p.img}" class = "card-img-top" alt = "${p.id}">
+                    <div class = "card-body text-center">
+                        <h5>${p.name}</h5>
+                        <p>Rp ${p.price.toLocaleString()}</p>
+                        <input type = "number" id ="qty-${p.id}" class ="form-control mb-2" value ="1" min ="1">
+                        <button class ="btn btn-primary" onclick ="addToCart(${p.id})">Tambah Ke Keranjang</button>
+                    </div>
+                    </div>`;
+                productList.appendChild(col);
+            });
+        }
+
+        function addToCart(id){
+            const product = products.find(p => p.id === id);
+            const qty = parseInt(document.getElementById(`qty-${id}`).value);
+            const existing = cart.find(item => item.id === id);
+
+            if (existing){
+                existing.qty += qty;
+            } else {
+                cart.push({ ...product, qty });
+            }
+            renderCart();
+        }
+
+        function renderCart(){
+            cartTable.innerHTML = "";
+            let Total = 0;
+
+            cart.forEach((item,index) => {
+                const subtotal = item.price * item.qty;
+                Total += subtotal;
+
+                const row =`
+                <tr>
+                    <td><img src ="${item.img}" class ="product-img"></td>
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>Rp ${item.price.toLocaleString()}</td>
+                    <td>Rp ${subtotal.toLocaleString()}</td>
+                    <td><button class ="btn btn-danger btn-sm" onclick ="removeItem(${index})">hapus</button></td>
+                    </tr>
+                    `;
+                    cartTable.insertAdjacentHTML("beforeend",row);
+            });
+
+            totalPriceEl.textContent = Total.toLocaleString();
+        }
+
+        function removeItem(index){
+            cart.splice(index,1);
+            renderCart(); 
+        }
+
+        checkoutBtn.addEventListener("click",() => {
+          const nama = document.getElementById("nama").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const alamat = document.getElementById("alamat").value.trim();
+
+          if (!nama || !email || !alamat){
+            alert("Harap Isi Semua Data Pembeli Terlebih Dahulu");
+          }
+
+            if (cart.length === 0) {
+                alert("Keranjang Masih Kosong, Silahkan Pilih Menu Dulu");
+                return;
+            } 
+            
+                alert(`Terima Kasih ${nama} Sudah Memesan Di Toko Kami THE DAILY GRIND!\nPesanan Kamu Sedang Diproses.\nDetail Pesanan Akan Dikirim Ke ${email}.\nAlamat Pengirim: ${alamat}.🤎`);
+                cart = [];
+                renderCart();
+            
+                document.getElementById("nama").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("alamat").value = "";
+        });
+
+        renderProducts();
+    </script>
+</body>
+</html>
